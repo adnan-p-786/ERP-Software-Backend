@@ -47,7 +47,7 @@ const productsSchema = new mongoose.Schema({
         required: true,
     },
     images: {
-        type: Image,
+        type: String,
         required: true,
     },
     vat: {

@@ -8,7 +8,22 @@ app.use(cors())
 app.use(express.json())
 
 
-app.use('/api',require('../backend/routes/userRoute'))
+app.use('/api',require('./routes/userRoute'))
+app.use('/api',require('./routes/rolesRoute'))
+app.use('/api',require('./routes/privilegesRoute'))
+app.use('/api',require('./routes/customerRoute'))
+app.use('/api',require('./routes/vendorsRoute'))
+app.use('/api',require('./routes/customerAccountsRoute'))
+app.use('/api',require('./routes/vendorsAccountRoute'))
+app.use('/api',require('./routes/categoriesRoute'))
+app.use('/api',require('./routes/subCategoriesRoute'))
+app.use('/api',require('./routes/departmentsRoute'))
+app.use('/api',require('./routes/racksRoute'))
+app.use('/api',require('./routes/stockRoute'))
+app.use('/api',require('./routes/salesRoute'))
+app.use('/api',require('./routes/productRoute'))
+app.use('/api',require('./routes/purchaseRoute'))
+app.use('/api',require('./routes/storesRoute'))
 
 
 
