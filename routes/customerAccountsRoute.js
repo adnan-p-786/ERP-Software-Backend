@@ -17,40 +17,40 @@ router.post('/post-customerAccounts',async(req,res)=>{
 })
 
 
-// router.get('/get-customerAccounts', async (req, res) => {
-//     try {
-//         const data = await customersAccountModel.find()
-//         .populate('customerId')
-//         res.status(200).json(data);
-//     } catch (error) {
-//         res.status(400).json(error);
-//     }
-// });
+router.get('/get-customerAccounts', async (req, res) => {
+    try {
+        const data = await customersAccountModel.find()
+        .populate('customerId')
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
 
 
-// router.put('/put-customerAccounts/:id', async (req, res) => {
-//     try {
-//         const id = req.params.id
-//         const updateData = await customersAccountModel.findOneAndUpdate({ _id: id }, req.body, { new: true })
-//         res.status(200).json(updateData)
-//     } catch (error) {
-//         res.status(400).json(error)
-//     }
-// })
+router.put('/put-customerAccounts/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const updateData = await customersAccountModel.findOneAndUpdate({ _id: id }, req.body, { new: true })
+        res.status(200).json(updateData)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
 
 
-// router.delete('/delete-customerAccounts/:id', async (req, res) => {
-//     try {
-//         const id = req.params.id; 
-//         const deleteData = await customersAccountModel.findByIdAndDelete(id);
-//         if (!deleteData) {
-//             return res.status(404).json({ message: "customers not found" });
-//         }
-//         res.status(200).json({ message: "customers deleted successfully", deleteddepartment: deleteData });
-//     } catch (error) {
-//         res.status(400).json(error);
-//     }
-// });
+router.delete('/delete-customerAccounts/:id', async (req, res) => {
+    try {
+        const id = req.params.id; 
+        const deleteData = await customersAccountModel.findByIdAndDelete(id);
+        if (!deleteData) {
+            return res.status(404).json({ message: "customerAccount not found" });
+        }
+        res.status(200).json({ message: "customerAccount deleted successfully", deleteddepartment: deleteData });
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
 
 
 
