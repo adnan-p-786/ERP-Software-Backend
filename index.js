@@ -24,6 +24,8 @@ app.use('/api',require('./routes/salesRoute'))
 app.use('/api',require('./routes/productRoute'))
 app.use('/api',require('./routes/purchaseRoute'))
 app.use('/api',require('./routes/storesRoute'))
+app.use('/api',require('./routes/expenseTypeRoute'))
+app.use('/api',require('./routes/expenseRoute'))
 
 
 

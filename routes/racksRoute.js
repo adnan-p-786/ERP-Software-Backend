@@ -53,10 +53,4 @@ router.delete('/delete-racks/:id', async (req, res) => {
 
 
 
-
-
-
-
-
-
 module.exports = router
