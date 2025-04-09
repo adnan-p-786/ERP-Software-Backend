@@ -26,8 +26,14 @@ app.use('/api',require('./routes/purchaseRoute'))
 app.use('/api',require('./routes/storesRoute'))
 app.use('/api',require('./routes/expenseTypeRoute'))
 app.use('/api',require('./routes/expenseRoute'))
+app.use('/api',require('./routes/accountRoute'))
+app.use('/api',require('./routes/discountRoute'))
+app.use('/api',require('./routes/locationRoute'))
+app.use('/api',require('./routes/warehouseRoute'))
+app.use('/api',require('./routes/brandRoute'))
 
 
+app.use('/api/images', express.static('upload/images'));
 
 
 

@@ -14,10 +14,11 @@ const accountsSchema = new mongoose.Schema({
         required: true,
     },
     particulars: {
-        type: Number,
+        type: String,
         required: true,
     }
 });
+
 
 module.exports = mongoose.model('accounts', accountsSchema)
 
