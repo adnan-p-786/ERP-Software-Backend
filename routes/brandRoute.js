@@ -44,4 +44,40 @@ router.post('/post-brand', uploadImg.single("logo"), async (req, res) => {
 
 
 
+router.get('/get-brand', async (req, res) => {
+    try {
+        const data = await brandModel.find();
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
+
+
+router.put('/put-brand/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const updateData = await brandModel.findOneAndUpdate({ _id: id }, req.body, { new: true })
+        res.status(200).json(updateData)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+
+router.delete('/delete-brand/:id', async (req, res) => {
+    try {
+        const id = req.params.id; 
+        const deleteData = await brandModel.findByIdAndDelete(id);
+        if (!deleteData) {
+            return res.status(404).json({ message: "brand not found" });
+        }
+        res.status(200).json({ message: "brand deleted successfully", deleteddepartment: deleteData });
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
+
 module.exports = router

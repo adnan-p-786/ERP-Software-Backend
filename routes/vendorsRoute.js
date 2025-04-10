@@ -52,12 +52,4 @@ router.delete('/delete-vendors/:id', async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
 module.exports = router
