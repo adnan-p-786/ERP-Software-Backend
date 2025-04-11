@@ -4,13 +4,18 @@ const router = express.Router()
 
 
 
-router.post('/post-categories', async (req, res) => {
+router.post('/post-categories',async (req, res) => {
     try {
-        const racks = new categoriesModel({
-            name: req.body.name
-        });
-        const savedRacks = await racks.save();
-        res.status(201).json(savedRacks);
+        if(req.body.name){
+
+            const racks = new categoriesModel({
+                name: req.body.name
+            });
+            const savedRacks = await racks.save();
+            return res.status(201).json(savedRacks);
+        }else{
+            return res.status(400).json("name must be required")
+        }
     } catch (error) {
         res.status(400).json(error);
     }

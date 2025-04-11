@@ -6,11 +6,17 @@ const router = express.Router()
 
 router.post('/post-racks', async (req, res) => {
     try {
-        const racks = new racksModel({
-            name: req.body.name
-        });
-        const savedRacks = await racks.save();
-        res.status(201).json(savedRacks);
+        if (req.body.name){
+            const racks = new racksModel({
+                name: req.body.name
+            });
+            const savedRacks = await racks.save();
+            res.status(201).json(savedRacks);
+        }
+        else{
+            return res.status(400).json("name must be required")
+        }
+        
     } catch (error) {
         res.status(400).json(error);
     }
