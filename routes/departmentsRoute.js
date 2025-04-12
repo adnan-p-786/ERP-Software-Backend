@@ -4,13 +4,18 @@ const router = express.Router()
 
 router.post('/post-department', async (req, res) => {
     try {
-        const department = new departmentsModel({
-            name: req.body.name
-        });
-        const savedDepartment = await department.save();
-        res.status(201).json(savedDepartment);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+        if(req.body.name){
+            const department = new departmentsModel({
+                name: req.body.name
+            });
+            const savedDepartment = await department.save();
+            return res.status(201).json(savedDepartment);
+        }
+        else{
+            return res.status(400).json("name must be required")
+        }
+    } catch (error) {
+        res.status(400).json(error);
     }
 });
 
