@@ -5,11 +5,16 @@ const router = express.Router()
 
 router.post('/post-expenseType', async (req, res) => {
     try {
-        const expense = new expenseTypeModel({
-            name: req.body.name
-        });
-        const savedExpense = await expense.save();
-        res.status(201).json(savedExpense);
+        if(req.body.name){
+            const expense = new expenseTypeModel({
+                name: req.body.name
+            });
+            const savedExpense = await expense.save();
+            res.status(201).json(savedExpense);
+        }
+        else{
+            return res.status(400).json("name must be required")
+        }
     } catch (error) {
         res.status(400).json(error);
     }

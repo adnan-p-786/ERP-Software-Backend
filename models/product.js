@@ -9,10 +9,6 @@ const productsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    description: {
-        type: String,
-        required: true,
-    },
     categoriesId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "categories",
@@ -38,15 +34,7 @@ const productsSchema = new mongoose.Schema({
         ref: "racks",
         required: true
     },
-    sku: {
-        type: String,
-        required: true,
-    },
     quantityAlert: {
-        type: String,
-        required: true,
-    },
-    images: {
         type: String,
         required: true,
     },

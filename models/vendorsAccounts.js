@@ -6,7 +6,7 @@ const vendorsAccountSchema = new mongoose.Schema({
         required: true,
     },
     debit: {
-        type: String,
+        type: Number,
         required: true
     },
     credit: {
