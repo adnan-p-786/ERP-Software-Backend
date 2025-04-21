@@ -17,7 +17,39 @@ router.post('/create-roles',async(req,res)=>{
     }
 })
 
+router.get('/get-roles', async (req, res) => {
+    try {
+        const data = await rolesModel.find();
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
 
+
+router.put('/put-roles/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const updateData = await rolesModel.findOneAndUpdate({ _id: id }, req.body, { new: true })
+        res.status(200).json(updateData)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+
+router.delete('/delete-roles/:id', async (req, res) => {
+    try {
+        const id = req.params.id; 
+        const deleteData = await rolesModel.findByIdAndDelete(id);
+        if (!deleteData) {
+            return res.status(404).json({ message: "roles not found" });
+        }
+        res.status(200).json({ message: "roles deleted successfully", deleteddepartment: deleteData });
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
 
 
 module.exports = router

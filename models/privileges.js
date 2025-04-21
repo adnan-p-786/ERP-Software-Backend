@@ -16,13 +16,7 @@ const privilegesSchema = new mongoose.Schema({
     delete: {
         type: String,
         required: true,
-    },
-    rolesId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "roles",
-        required: true
     }
-
 });
 
 module.exports = mongoose.model('privileges', privilegesSchema)
