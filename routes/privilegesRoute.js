@@ -49,6 +49,4 @@ router.delete('/delete-privileges/:id', async (req, res) => {
     }
 });
 
-
-
 module.exports = router

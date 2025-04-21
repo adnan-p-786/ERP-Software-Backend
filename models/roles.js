@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const rolesSchema = new mongoose.Schema({
     name: {
@@ -9,12 +9,10 @@ const rolesSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    privilegesId: {
+    privileges: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "privileges",
-        required: true
+        ref: 'privileges'
     }
 });
 
-module.exports = mongoose.model('roles', rolesSchema)
-
+module.exports = mongoose.model('roles', rolesSchema);

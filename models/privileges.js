@@ -1,23 +1,22 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const privilegesSchema = new mongoose.Schema({
     crud: {
-        type: String,
+        type: Boolean,
         required: true,
     },
     create: {
-        type: String,
+        type: [String],
         required: true,
     },
     update: {
-        type: String,
+        type: [String],
         required: true,
     },
     delete: {
-        type: String,
+        type: [String],
         required: true,
     }
 });
 
-module.exports = mongoose.model('privileges', privilegesSchema)
-
+module.exports = mongoose.model('privileges', privilegesSchema);
