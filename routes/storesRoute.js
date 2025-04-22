@@ -2,9 +2,6 @@ const express = require('express')
 const storesModel = require ('../models/stores')
 const router = express.Router()
 
-
-
-
 router.post('/post-stores',async(req,res)=>{
     try {
         const {name,username,password,phone,email,active} = req.body
@@ -52,9 +49,6 @@ router.delete('/delete-stores/:id', async (req, res) => {
         res.status(400).json(error);
     }
 });
-
-
-
 
 
 module.exports = router

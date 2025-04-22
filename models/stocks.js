@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const stocksSchema = new mongoose.Schema({
     productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "",
+        ref: "products",
         required: true
     },
     unitId: {
@@ -12,7 +12,7 @@ const stocksSchema = new mongoose.Schema({
         required: true
     },
     quantity: {
-        type: Number,
+        type: String,
         required: true,
     },
     purchase_price: {
