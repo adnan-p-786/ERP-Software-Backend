@@ -5,11 +5,11 @@ const router = express.Router()
 
 router.post('/post-warehouse', async (req, res) => {
     try {
-        const { name,phone,email,storeId,LocationId } = req.body
-        if (!name || !phone || !email    ||  !storeId   || !LocationId) {
+        const { name,phone,email,storeId,locationId } = req.body
+        if (!name || !phone || !email ||  !storeId   || !locationId) {
             return res.status(400).json({ message: "all fields are required" })
         }
-        const newData = await warehouseModel.create({  name,phone,email,storeId,LocationId  })
+        const newData = await warehouseModel.create({  name,phone,email,storeId,locationId  })
         res.status(201).json(newData)
     } catch (error) {
         res.status(400).json(error)

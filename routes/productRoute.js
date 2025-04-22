@@ -16,17 +16,24 @@ router.post('/post-product',async(req,res)=>{
 })
 
 
-router.get('/get-product', async (req, res) => {
+router.get('/get-product',async(req, res) => {
+   
     try {
+       
+        
         const data = await productsModel.find()
         .populate('categoriesId')
         .populate('subCategoriesId')
         .populate('brandId')
         .populate('unitsId')
         .populate('racksId')
-        res.status(200).json(data);
+        if(data.length > 0){
+            return  res.status(200).json(data);
+        }else{
+            return res.status(400).json("no data");
+        }
     } catch (error) {
-        res.status(400).json(error);
+       return res.status(400).json(error.message);
     }
 });
 

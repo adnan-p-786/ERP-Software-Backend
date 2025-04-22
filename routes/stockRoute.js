@@ -1,5 +1,5 @@
 const express = require('express')
-const stoksModel = require ('../models/sales')
+const stoksModel = require ('../models/stocks')
 const router = express.Router()
 
 router.post('/post-stocks',async(req,res)=>{
@@ -16,11 +16,11 @@ router.post('/post-stocks',async(req,res)=>{
 })
 
 
-router.get('/get-product', async (req, res) => {
+router.get('/get-stocks', async (req, res) => {
     try {
-        const data = await productsModel.find()
+        const data = await stoksModel.find()
         .populate('productId')
-        .populate('unitsId')
+        .populate('unitId')
         .populate('storeId')
         .populate('warehouseId')
         .populate('vendorId')
