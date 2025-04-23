@@ -6,11 +6,11 @@ const variantsSchema = new mongoose.Schema({
         required: true,
     },
     price: {
-        type: Nvariants,
+        type: Number,
         required: true,
     },
     value: {
-        type: Nvariants,
+        type: String,
         required: true,
     }
 });
