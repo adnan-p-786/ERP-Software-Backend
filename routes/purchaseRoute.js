@@ -8,9 +8,9 @@ router.post('/post-purchase',async(req,res)=>{
         if (!billNo || !vendorId || !storeId ||!warehouseId ||!totalAmount ||!otherExpense )
             res.status(400).json({message: "all fields are required"})
         const newData = await purchaseModel.create({billNo,vendorId,storeId,warehouseId,totalAmount,otherExpense})
-        res.status(201).json(newData)
+        return res.status(201).json(newData)
     } catch (error) {
-        res.status(400).json(error)
+        return res.status(400).json(error)
     }
 })
 
@@ -21,6 +21,7 @@ router.get('/get-purchase', async (req, res) => {
         .populate('vendorId')
         .populate('storeId')
         .populate('warehouseId')
+        .populate('otherExpense')
         res.status(200).json(data);
     } catch (error) {
         res.status(400).json(error);

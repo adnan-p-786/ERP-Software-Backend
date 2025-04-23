@@ -25,7 +25,8 @@ const purchaseSchema = new mongoose.Schema({
         required: true
     },
     otherExpense: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "otherexpenses",
         required: true
     },
 
