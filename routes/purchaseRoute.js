@@ -3,17 +3,42 @@ const purchaseModel = require ('../models/purchase')
 const purchaseItemsModel = require ('../models/purchase_items')
 const router = express.Router()
 
-router.post('/post-purchase',async(req,res)=>{
-    try {
-        const {billNo,vendorId,storeId,warehouseId,totalAmount,otherExpense}= req.body
-        if (!billNo || !vendorId || !storeId ||!warehouseId ||!totalAmount ||!otherExpense )
-            res.status(400).json({message: "all fields are required"})
-        const newData = await purchaseModel.create({billNo,vendorId,storeId,warehouseId,totalAmount,otherExpense})
-        return res.status(201).json(newData)
-    } catch (error) {
-        return res.status(400).json(error)
+router.post('/post-purchase', async (req, res) => {
+    const { billNo, vendorId, storeId, warehouseId, totalAmount, items } = req.body;
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ message: "Purchase items are required" });
     }
-})
+
+    try {
+        // Step 1: Create the Purchase document
+        const newPurchase = new purchaseModel({
+            billNo,
+            vendorId,
+            storeId,
+            warehouseId,
+            totalAmount
+        });
+
+        const savedPurchase = await newPurchase.save();
+
+        // Step 2: Insert items one by one
+        for (const item of items) {
+            const newItem = new purchaseItemsModel({
+                ...item,
+                purchaseId: savedPurchase._id
+            });
+            await newItem.save();
+        }
+
+        res.status(201).json({ message: "Purchase created successfully", purchaseId: savedPurchase._id });
+
+    } catch (error) {
+        console.error("Error creating purchase:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 
 
 router.get('/get-purchase', async (req, res) => {
@@ -22,7 +47,6 @@ router.get('/get-purchase', async (req, res) => {
         .populate('vendorId')
         .populate('storeId')
         .populate('warehouseId')
-        .populate('otherExpense')
         res.status(200).json(data);
     } catch (error) {
         res.status(400).json(error);

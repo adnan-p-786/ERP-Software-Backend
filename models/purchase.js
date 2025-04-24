@@ -23,13 +23,7 @@ const purchaseSchema = new mongoose.Schema({
     totalAmount: {
         type: Number,
         required: true
-    },
-    otherExpense: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "otherexpenses",
-        required: true
-    },
-
+    }
 });
 
 module.exports = mongoose.model('purchase', purchaseSchema)

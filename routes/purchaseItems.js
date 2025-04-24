@@ -4,8 +4,8 @@ const router = express.Router()
 
 router.post('/post-purchaseItems',async(req,res)=>{
     try {
-        const {productId,unitsId,purchasePrice,sellingPrice,variantsId,quantity}= req.body
-        if (!productId || !unitsId || !purchasePrice ||!sellingPrice ||!variantsId ||!quantity )
+        const {purchaseId,productId,unitsId,purchasePrice,sellingPrice,variantsId,quantity}= req.body
+        if (!purchaseId || !productId || !unitsId || !purchasePrice ||!sellingPrice ||!variantsId ||!quantity )
             res.status(400).json({message: "all fields are required"})
         const newData = await purchaseItemsModel.create({productId,unitsId,purchasePrice,sellingPrice,variantsId,quantity})
         return res.status(201).json(newData)
@@ -18,6 +18,7 @@ router.post('/post-purchaseItems',async(req,res)=>{
 router.get('/get-purchaseItems', async (req, res) => {
     try {
         const data = await purchaseItemsModel.find()
+        .populate('purchaseId')
         .populate('productId')
         .populate('unitsId')
         .populate('variantsId')

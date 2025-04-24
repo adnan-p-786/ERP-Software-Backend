@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
 const purchase_ItemsSchema = new mongoose.Schema({
+    purchaseId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "purchase",
+        required: true
+    },
     productId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "products",

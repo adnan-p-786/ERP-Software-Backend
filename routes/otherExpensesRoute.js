@@ -3,17 +3,23 @@ const otherExpensesmodel = require ('../models/otherExpenses')
 const router = express.Router()
 
 
-router.post('/post-otherExpenses',async(req,res)=>{
+router.post('/post-otherExpenses', async (req, res) => {
     try {
-        const {name,amount}= req.body
-        if (!name || !amount )
-            res.status(400).json({message: "all fields are required"})
-        const newData = await otherExpensesmodel.create({name,amount})
-        res.status(201).json(newData)
+        if (req.body.name){
+            const racks = new otherExpensesmodel({
+                name: req.body.name
+            });
+            const savedexp = await racks.save();
+            res.status(201).json(savedexp);
+        }
+        else{
+            return res.status(400).json("name must be required")
+        }
+        
     } catch (error) {
-        res.status(400).json(error)
+        res.status(400).json(error);
     }
-})
+});
 
 
 router.get('/get-otherExpenses', async (req, res) => {

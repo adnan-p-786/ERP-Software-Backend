@@ -39,6 +39,7 @@ app.use('/api',require('./routes/unitsRoute'))
 app.use('/api',require('./routes/otherExpensesRoute'))
 app.use('/api',require('./routes/variants'))
 app.use('/api',require('./routes/purchaseItems'))
+app.use('/api',require('./routes/purchaseOtherExpRoute'))
 
 
 app.use('/api/images', express.static('upload/images'));
