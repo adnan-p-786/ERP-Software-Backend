@@ -12,7 +12,7 @@ const stocksSchema = new mongoose.Schema({
         required: true
     },
     quantity: {
-        type: String,
+        type: Number,
         required: true,
     },
     purchase_price: {
@@ -20,10 +20,6 @@ const stocksSchema = new mongoose.Schema({
         required:true
     },
     selling_price: {
-        type: Number,
-        required:true
-    },
-    barcode: {
         type: Number,
         required:true
     },

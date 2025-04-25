@@ -23,6 +23,10 @@ const purchaseSchema = new mongoose.Schema({
     totalAmount: {
         type: Number,
         required: true
+    },
+    otherExpense:{
+        type:Number,
+        required:true
     }
 });
 

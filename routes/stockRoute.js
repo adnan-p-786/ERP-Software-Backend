@@ -4,11 +4,11 @@ const router = express.Router()
 
 router.post('/post-stocks',async(req,res)=>{
     try {
-        const {productId,unitId,quantity,purchase_price,selling_price,barcode,storeId,warehouseId,vendorId,billNo} = req.body
-        if (!productId || !unitId || !quantity || !purchase_price || !selling_price || !barcode || !storeId || !warehouseId ||!vendorId ||!billNo){
+        const {productId,unitId,quantity,purchase_price,selling_price,storeId,warehouseId,vendorId,billNo} = req.body
+        if (!productId || !unitId || !quantity || !purchase_price || !selling_price || !storeId || !warehouseId ||!vendorId ||!billNo){
             res.status(200).json({message: "all fields are required"})
         }
-        const newData = await stoksModel.create({productId,unitId,quantity,purchase_price,selling_price,barcode,storeId,warehouseId,vendorId,billNo})
+        const newData = await stoksModel.create({productId,unitId,quantity,purchase_price,selling_price,storeId,warehouseId,vendorId,billNo})
         res.status(201).json(newData)
     } catch (error) {
         res.status(400).json(error)
