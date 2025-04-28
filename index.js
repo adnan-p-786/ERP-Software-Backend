@@ -37,7 +37,7 @@ app.use('/api',require('./routes/warehouseRoute'))
 app.use('/api',require('./routes/brandRoute'))
 app.use('/api',require('./routes/unitsRoute'))
 app.use('/api',require('./routes/otherExpensesRoute'))
-app.use('/api',require('./routes/variants'))
+app.use('/api',require('./routes/variantsRoute'))
 app.use('/api',require('./routes/purchaseItems'))
 app.use('/api',require('./routes/purchaseOtherExpRoute'))
 
