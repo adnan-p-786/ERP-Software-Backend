@@ -34,6 +34,16 @@ router.post('/login-user', async (req, res) => {
     }
   });
 
+  
+
+  router.get('/get-user',async(req,res)=>{
+    try {
+        const user = await userModel.find()
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
 
 
 module.exports = router
