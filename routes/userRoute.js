@@ -23,11 +23,12 @@ router.post('/login-user', async (req, res) => {
         username: user.username,
         role: user.rolesId, // include more fields as needed
       };
-  
+  const SECRET = process.env.JWT_SECRET
       // Sign token
-      const token = jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' });
-  
-      res.json({ message: 'Login successful', token });
+      const token = jwt.sign(payload,SECRET, { expiresIn: '1h' });
+      console.log({token});
+      
+       return res.json({ message: 'Login successful', token,user }).status(200);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
