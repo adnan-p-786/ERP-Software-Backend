@@ -20,10 +20,9 @@ router.post('/post-Accounts',async(req,res)=>{
 router.get('/get-Accounts', async (req, res) => {
     try {
         const data = await accountsModel.find()
-        .populate('customerId')
-        res.status(200).json(data);
+        return res.status(200).json(data);
     } catch (error) {
-        res.status(400).json(error);
+       return res.status(400).json(error);
     }
 });
 
