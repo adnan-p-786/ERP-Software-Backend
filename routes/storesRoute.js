@@ -1,8 +1,9 @@
 const express = require('express')
 const storesModel = require ('../models/stores')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
-router.post('/post-stores',async(req,res)=>{
+router.post('/post-stores',authenticateAdmin, async(req,res)=>{
     try {
         const {name,username,password,phone,email,active} = req.body
         if (!name || !username || !password || !phone || !email || !active){
@@ -16,7 +17,7 @@ router.post('/post-stores',async(req,res)=>{
 })
 
 
-router.get('/get-stores', async (req, res) => {
+router.get('/get-stores',authenticateAdmin, async (req, res) => {
     try {
         const data = await storesModel.find();
         res.status(200).json(data);

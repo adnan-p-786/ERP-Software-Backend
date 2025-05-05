@@ -6,9 +6,10 @@ const stockModel = require ('../models/stocks')
 const vendorAccountModel = require ('../models/vendorsAccounts')
 const productModel = require ('../models/product')
 const unitModel = require ('../models/units')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
-router.post('/post-purchase', async (req, res) => {
+router.post('/post-purchase',authenticateAdmin, async (req, res) => {
     try {
       const reqData = req.body;
       console.log({reqData});
@@ -115,7 +116,7 @@ router.post('/post-purchase', async (req, res) => {
     }
   });
 
-  router.get('/get-purchase', async (req, res) => {
+  router.get('/get-purchase',authenticateAdmin, async (req, res) => {
     try {
         const data = await purchaseModel.find()
         .populate('vendorId')

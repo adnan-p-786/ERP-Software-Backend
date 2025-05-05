@@ -1,8 +1,9 @@
 const express = require('express')
-const departmentsModel = require('../models/departments')
+const departmentsModel = require('../models/departments');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router()
 
-router.post('/post-department', async (req, res) => {
+router.post('/post-department',authenticateAdmin, async (req, res) => {
     try {
         if(req.body.name){
             const department = new departmentsModel({
@@ -20,7 +21,7 @@ router.post('/post-department', async (req, res) => {
 });
 
 
-router.get('/get-department', async (req, res) => {
+router.get('/get-department',authenticateAdmin, async (req, res) => {
     try {
         const data = await departmentsModel.find();
         res.status(200).json(data);

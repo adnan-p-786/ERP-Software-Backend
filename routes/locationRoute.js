@@ -1,9 +1,10 @@
 const express = require('express')
-const locationModel = require ('../models/location')
+const locationModel = require ('../models/location');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router()
 
 
-router.post('/post-location', async (req, res) => {
+router.post('/post-location',authenticateAdmin, async (req, res) => {
     try {
         const { address, country , state , city, zipcode ,warehouseId } = req.body
         if (!address || !country || !state    ||  !city   || !zipcode   || !warehouseId) {
@@ -17,7 +18,7 @@ router.post('/post-location', async (req, res) => {
 });
 
 
-router.get('/get-location', async (req, res) => {
+router.get('/get-location',authenticateAdmin, async (req, res) => {
     try {
         const data = await locationModel.find()
         .populate('warehouseId')

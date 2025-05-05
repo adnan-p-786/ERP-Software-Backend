@@ -1,10 +1,11 @@
 const express = require('express')
-const variantsModel = require ('../models/variants')
+const variantsModel = require ('../models/variants');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router()
 
 
 
-router.post('/post-variant', async (req, res) => {
+router.post('/post-variant',authenticateAdmin, async (req, res) => {
     try {
         if (req.body.name){
             const variant = new variantsModel({
@@ -23,7 +24,7 @@ router.post('/post-variant', async (req, res) => {
 });
 
 
-router.get('/get-variant', async (req, res) => {
+router.get('/get-variant',authenticateAdmin, async (req, res) => {
     try {
         const data = await variantsModel.find();
         res.status(200).json(data);

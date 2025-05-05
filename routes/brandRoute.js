@@ -3,6 +3,7 @@ const brandModel = require('../models/brand')
 const router = express.Router()
 const multer = require('multer')
 const path = require('path');
+const { authenticateAdmin } = require('./auth');
 
 
 
@@ -17,7 +18,7 @@ const storage = multer.diskStorage({
 
 const uploadImg = multer({ storage: storage });
 
-router.post('/post-brand', uploadImg.single("logo"), async (req, res) => {
+router.post('/post-brand', uploadImg.single("logo"),authenticateAdmin, async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ message: "Logo image is required" });
@@ -44,7 +45,7 @@ router.post('/post-brand', uploadImg.single("logo"), async (req, res) => {
 
 
 
-router.get('/get-brand', async (req, res) => {
+router.get('/get-brand',authenticateAdmin, async (req, res) => {
     try {
         const data = await brandModel.find();
         res.status(200).json(data);

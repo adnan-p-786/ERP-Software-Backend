@@ -1,9 +1,10 @@
 const express = require('express')
-const subCategoriesModel = require('../models/subCategories')
+const subCategoriesModel = require('../models/subCategories');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router()
 
 
-router.post('/post-subCategories', async (req, res) => {
+router.post('/post-subCategories',authenticateAdmin, async (req, res) => {
     try {
         const { name,categoriesId } = req.body
         if (!name || !categoriesId) {
@@ -17,7 +18,7 @@ router.post('/post-subCategories', async (req, res) => {
 });
 
 
-router.get('/get-subCategories', async (req, res) => {
+router.get('/get-subCategories',authenticateAdmin, async (req, res) => {
     try {
         const data = await subCategoriesModel.find()
         .populate('categoriesId')

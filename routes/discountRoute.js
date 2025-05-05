@@ -1,10 +1,11 @@
 const express = require('express')
 const discountModel = require ('../models/discount')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
 
 
-router.post('/post-discount',async(req,res)=>{
+router.post('/post-discount',authenticateAdmin, async(req,res)=>{
     try {
         const {name,type,value} = req.body
         if (!name || !type ||!value){
@@ -18,7 +19,7 @@ router.post('/post-discount',async(req,res)=>{
 })
 
 
-router.get('/get-discount', async (req, res) => {
+router.get('/get-discount',authenticateAdmin, async (req, res) => {
     try {
         const data = await discountModel.find();
         res.status(200).json(data);

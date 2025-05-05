@@ -1,11 +1,12 @@
 const express = require('express');
 const userModel = require('../models/users');
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router();
 
 
-router.post('/login-user', async (req, res) => {
+router.post('/login-user',async (req, res) => {
     const { email, password } = req.body;
   
     try {
@@ -37,7 +38,7 @@ router.post('/login-user', async (req, res) => {
 
   
 
-  router.get('/get-user',async(req,res)=>{
+  router.get('/get-user',authenticateAdmin,async(req,res)=>{
     try {
         const user = await userModel.find()
         res.status(200).json(user)

@@ -1,10 +1,11 @@
 const express = require('express')
-const categoriesModel = require ('../models/categories')
+const categoriesModel = require ('../models/categories');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router()
 
 
 
-router.post('/post-categories',async (req, res) => {
+router.post('/post-categories',authenticateAdmin,async (req, res) => {
     try {
         if(req.body.name){
 
@@ -22,7 +23,7 @@ router.post('/post-categories',async (req, res) => {
 });
 
 
-router.get('/get-categories', async (req, res) => {
+router.get('/get-categories',authenticateAdmin, async (req, res) => {
     try {
         const data = await categoriesModel.find();
         res.status(200).json(data);

@@ -1,9 +1,10 @@
 const express = require('express')
 const vendorsAccountModel = require ('../models/vendorsAccounts')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
 
-router.post('/post-vendorAccounts',async(req,res)=>{
+router.post('/post-vendorAccounts',authenticateAdmin,async(req,res)=>{
     try {
         const {type,debit,credit,vendorsId} = req.body
         if (!type || !debit || !credit || !vendorsId){
@@ -17,7 +18,7 @@ router.post('/post-vendorAccounts',async(req,res)=>{
 })
 
 
-router.get('/get-vendorAccounts', async (req, res) => {
+router.get('/get-vendorAccounts',authenticateAdmin, async (req, res) => {
     try {
         const data = await vendorsAccountModel.find()
         .populate('vendorsId')

@@ -3,6 +3,7 @@ const connectDB = require('./db')
 const app = express()
 const port = 3000
 const cors =require('cors')
+const { authenticateAdmin } = require('./routes/auth')
 // const morgan = require('morgan');
 
 app.use(express.json())

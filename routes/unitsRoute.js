@@ -1,9 +1,10 @@
 const express = require('express')
 const unitsModel = require ('../models/units')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
 
-router.post('/post-units',async(req,res)=>{
+router.post('/post-units',authenticateAdmin,async(req,res)=>{
     try {
         const {name,value} = req.body
         if (!name || !value){
@@ -17,7 +18,7 @@ router.post('/post-units',async(req,res)=>{
 })
 
 
-router.get('/get-units', async (req, res) => {
+router.get('/get-units',authenticateAdmin, async (req, res) => {
     try {
         const data = await unitsModel.find();
         res.status(200).json(data);

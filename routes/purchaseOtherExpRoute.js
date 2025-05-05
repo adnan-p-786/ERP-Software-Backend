@@ -1,9 +1,10 @@
 const express = require('express')
 const purchaseOtherexpModel = require ('../models/purchaseotherExp')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
 
-router.post('/post-purchaseotherExp',async(req,res)=>{
+router.post('/post-purchaseotherExp',authenticateAdmin, async(req,res)=>{
     try {
         const {otherExpenseId,purchaseId,amount}= req.body
         if (!otherExpenseId || !purchaseId || !amount)
@@ -16,7 +17,7 @@ router.post('/post-purchaseotherExp',async(req,res)=>{
 })
 
 
-router.get('/get-purchaseotherExp',async(req, res) => {
+router.get('/get-purchaseotherExp', authenticateAdmin ,async(req, res) => {
     try {
         const data = await purchaseOtherexpModel.find()
         .populate('otherExpenseId')

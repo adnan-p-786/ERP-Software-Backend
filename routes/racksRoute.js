@@ -1,10 +1,11 @@
 const express = require('express')
-const racksModel = require ('../models/racks')
+const racksModel = require ('../models/racks');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router()
 
 
 
-router.post('/post-racks', async (req, res) => {
+router.post('/post-racks',authenticateAdmin, async (req, res) => {
     try {
         if (req.body.name){
             const racks = new racksModel({
@@ -23,7 +24,7 @@ router.post('/post-racks', async (req, res) => {
 });
 
 
-router.get('/get-racks', async (req, res) => {
+router.get('/get-racks',authenticateAdmin, async (req, res) => {
     try {
         const data = await racksModel.find();
         res.status(200).json(data);

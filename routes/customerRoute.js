@@ -1,9 +1,10 @@
 const express = require('express')
 const customersModel = require ('../models/customer')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
 
-router.post('/post-customers',async(req,res)=>{
+router.post('/post-customers',authenticateAdmin,async(req,res)=>{
     try {
         const {name,email,phone,address} = req.body
         if (!name || !phone || !email || !address){
@@ -17,7 +18,7 @@ router.post('/post-customers',async(req,res)=>{
 })
 
 
-router.get('/get-customers', async (req, res) => {
+router.get('/get-customers',authenticateAdmin, async (req, res) => {
     try {
         const data = await customersModel.find();
         res.status(200).json(data);

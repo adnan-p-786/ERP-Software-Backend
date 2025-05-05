@@ -1,9 +1,10 @@
 const express = require('express')
-const otherExpensesmodel = require ('../models/otherExpenses')
+const otherExpensesmodel = require ('../models/otherExpenses');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router()
 
 
-router.post('/post-otherExpenses', async (req, res) => {
+router.post('/post-otherExpenses',authenticateAdmin, async (req, res) => {
     try {
         if (req.body.name){
             const racks = new otherExpensesmodel({
@@ -22,7 +23,7 @@ router.post('/post-otherExpenses', async (req, res) => {
 });
 
 
-router.get('/get-otherExpenses', async (req, res) => {
+router.get('/get-otherExpenses',authenticateAdmin, async (req, res) => {
     try {
         const data = await otherExpensesmodel.find()
         res.status(200).json(data);

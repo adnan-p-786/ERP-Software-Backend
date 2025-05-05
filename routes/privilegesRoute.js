@@ -1,8 +1,9 @@
 const express = require('express')
 const privilegesModel = require ('../models/privileges')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
-router.post('/create-privileges',async(req,res)=>{
+router.post('/create-privileges',authenticateAdmin ,async(req,res)=>{
     try {
         const {crud,create,update,delete:del} =req.body
         if (!crud || !create || !update || !del){
@@ -15,7 +16,7 @@ router.post('/create-privileges',async(req,res)=>{
     }
 })
 
-router.get('/get-privileges', async (req, res) => {
+router.get('/get-privileges',authenticateAdmin, async (req, res) => {
     try {
         const data = await privilegesModel.find();
         res.status(200).json(data);

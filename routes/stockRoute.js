@@ -1,8 +1,9 @@
 const express = require('express')
 const stoksModel = require ('../models/stocks')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
-router.post('/post-stocks',async(req,res)=>{
+router.post('/post-stocks',authenticateAdmin, async(req,res)=>{
     try {
         const {productId,unitId,quantity,purchase_price,selling_price,storeId,warehouseId,vendorId,billNo} = req.body
         if (!productId || !unitId || !quantity || !purchase_price || !selling_price || !storeId || !warehouseId ||!vendorId ||!billNo){
@@ -16,7 +17,7 @@ router.post('/post-stocks',async(req,res)=>{
 })
 
 
-router.get('/get-stocks', async (req, res) => {
+router.get('/get-stocks',authenticateAdmin, async (req, res) => {
     try {
         const data = await stoksModel.find()
         .populate('productId')

@@ -2,9 +2,10 @@ const express = require('express')
 const salesModel = require ('../models/sales')
 const salesItemsModel = require ('../models/sales_items')
 const accountModel = require ('../models/accounts')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
-router.post('/post-sales', async (req, res) => {
+router.post('/post-sales',authenticateAdmin, async (req, res) => {
     try {
       const reqData = req.body;
       console.log({reqData});
@@ -19,17 +20,6 @@ router.post('/post-sales', async (req, res) => {
         discounted_amount: reqData.discounted_amount,
         usersId: reqData.usersId
       });
-  
-    //   if (reqData.other_costs) {
-    //     for (const cost of reqData.other_costs) {
-    //       await otherpurchaseModel.create({
-    //         purchaseId: purchase._id,
-    //         otherExpenseId: cost.otherCostId,
-    //         amount: parseFloat(cost.amount.toFixed(2)),
-    //       });
-    //     }
-    //   }
-  
   
     let totalAmount = 0;
 
@@ -68,7 +58,7 @@ router.post('/post-sales', async (req, res) => {
 
 
 
-router.get('/get-sales', async (req, res) => {
+router.get('/get-sales',authenticateAdmin, async (req, res) => {
     try {
         const data = await salesModel.find()
         .populate('customerId')

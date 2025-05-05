@@ -1,9 +1,10 @@
 const express = require('express')
-const warehouseModel = require ('../models/warehouse')
+const warehouseModel = require ('../models/warehouse');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router()
 
 
-router.post('/post-warehouse', async (req, res) => {
+router.post('/post-warehouse',authenticateAdmin, async (req, res) => {
     try {
         const { name,phone,email,storeId,locationId } = req.body
         if (!name || !phone || !email ||  !storeId   || !locationId) {
@@ -17,7 +18,7 @@ router.post('/post-warehouse', async (req, res) => {
 });
 
 
-router.get('/get-warehouse', async (req, res) => {
+router.get('/get-warehouse',authenticateAdmin, async (req, res) => {
     try {
         const data = await warehouseModel.find()
         .populate('storeId')

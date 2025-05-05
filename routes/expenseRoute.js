@@ -1,9 +1,10 @@
 const express = require('express')
 const expenseModel = require ('../models/expenses')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
 
-router.post('/post-expenses',async(req,res)=>{
+router.post('/post-expenses',authenticateAdmin,async(req,res)=>{
     try {
         const {date,amount,expenseTypeId}= req.body
         if (!date || !amount || !expenseTypeId )
@@ -16,7 +17,7 @@ router.post('/post-expenses',async(req,res)=>{
 })
 
 
-router.get('/get-expenses', async (req, res) => {
+router.get('/get-expenses',authenticateAdmin, async (req, res) => {
     try {
         const data = await expenseModel.find()
         .populate('expenseTypeId')

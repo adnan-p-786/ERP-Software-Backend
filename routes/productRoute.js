@@ -1,9 +1,10 @@
 const express = require('express')
 const productsModel = require ('../models/product')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
 
-router.post('/post-product',async(req,res)=>{
+router.post('/post-product',authenticateAdmin ,async(req,res)=>{
     try {
         const {name,description,categoriesId,subCategoriesId,brandId,unitsId,racksId,quantityAlert,vat}= req.body
         if (!name || !description || !categoriesId ||!subCategoriesId ||!brandId ||!unitsId ||!racksId ||!quantityAlert ||!vat )
@@ -16,7 +17,7 @@ router.post('/post-product',async(req,res)=>{
 })
 
 
-router.get('/get-product',async(req, res) => {
+router.get('/get-product',authenticateAdmin, async(req, res) => {
    
     try {
        

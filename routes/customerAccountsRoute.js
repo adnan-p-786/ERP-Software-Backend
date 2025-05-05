@@ -1,9 +1,10 @@
 const express = require('express')
 const customersAccountModel = require ('../models/customerAccounts')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
 
-router.post('/post-customerAccounts',async(req,res)=>{
+router.post('/post-customerAccounts',authenticateAdmin ,async(req,res)=>{
     try {
         const {type,debit,credit,customerId} = req.body
         if (!type || !debit || !credit || !customerId){
@@ -17,7 +18,7 @@ router.post('/post-customerAccounts',async(req,res)=>{
 })
 
 
-router.get('/get-customerAccounts', async (req, res) => {
+router.get('/get-customerAccounts',authenticateAdmin, async (req, res) => {
     try {
         const data = await customersAccountModel.find()
         .populate('customerId')

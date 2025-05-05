@@ -1,9 +1,10 @@
 const express = require('express');
 const rolesModel = require('../models/roles');
 const privilegesModel = require('../models/privileges');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router();
 
-router.post('/post-roles', async (req, res) => {
+router.post('/post-roles',authenticateAdmin, async (req, res) => {
     try {
         const { name, description, privileges } = req.body;
 
@@ -41,7 +42,7 @@ router.post('/post-roles', async (req, res) => {
 });
 
 
-router.get('/get-roles', async (req, res) => {
+router.get('/get-roles',authenticateAdmin, async (req, res) => {
     try {
         const roles = await rolesModel.find().populate('privileges');
         res.status(200).json(roles);

@@ -1,9 +1,10 @@
 const express = require('express')
 const accountsModel = require ('../models/accounts')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
 
-router.post('/post-Accounts',async(req,res)=>{
+router.post('/post-Accounts',authenticateAdmin,async(req,res)=>{
     try {
         const {credit,debit,type,particulars} = req.body
         if (!type || !debit || !credit || !particulars){
@@ -17,7 +18,7 @@ router.post('/post-Accounts',async(req,res)=>{
 })
 
 
-router.get('/get-Accounts', async (req, res) => {
+router.get('/get-Accounts',authenticateAdmin, async (req, res) => {
     try {
         const data = await accountsModel.find()
         return res.status(200).json(data);
@@ -50,12 +51,6 @@ router.delete('/delete-Accounts/:id', async (req, res) => {
         res.status(400).json(error);
     }
 });
-
-
-
-
-
-
 
 
 

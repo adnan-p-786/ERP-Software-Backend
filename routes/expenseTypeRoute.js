@@ -1,9 +1,10 @@
 const express = require('express')
-const expenseTypeModel = require ('../models/expenseType')
+const expenseTypeModel = require ('../models/expenseType');
+const { authenticateAdmin } = require('./auth');
 const router = express.Router()
 
 
-router.post('/post-expenseType', async (req, res) => {
+router.post('/post-expenseType',authenticateAdmin, async (req, res) => {
     try {
         if(req.body.name){
             const expense = new expenseTypeModel({
@@ -21,7 +22,7 @@ router.post('/post-expenseType', async (req, res) => {
 });
 
 
-router.get('/get-expenseType', async (req, res) => {
+router.get('/get-expenseType',authenticateAdmin, async (req, res) => {
     try {
         const data = await expenseTypeModel.find();
         res.status(200).json(data);

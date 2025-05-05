@@ -1,8 +1,9 @@
 const express = require('express')
 const salesItemsModel = require ('../models/sales_items')
+const { authenticateAdmin } = require('./auth')
 const router = express.Router()
 
-router.post('/post-salesItems',async(req,res)=>{
+router.post('/post-salesItems',authenticateAdmin, async(req,res)=>{
     try {
         const {stockId,quantity,unitId,price} = req.body
         if (!stockId || !quantity || !unitId || !price){
@@ -16,7 +17,7 @@ router.post('/post-salesItems',async(req,res)=>{
 })
 
 
-router.get('/get-salesItems', async (req, res) => {
+router.get('/get-salesItems',authenticateAdmin, async (req, res) => {
     try {
         const data = await salesItemsModel.find()
         .populate('stockId')
